@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project ARES</title>
+    <style>
+      body { font-family: Arial, sans-serif; background:#0b0b0f; color:#f3f3f3; margin:0; }
+      .wrap { max-width:900px; margin:0 auto; padding:24px; }
+      .panel { background:#16161d; border:1px solid #2b2b36; border-radius:14px; padding:16px; }
+      h1 { margin-top:0; }
+      #chat { min-height:420px; max-height:60vh; overflow:auto; white-space:pre-wrap; padding:12px; background:#111118; border-radius:10px; border:1px solid #262633; }
+      .msg { margin:0 0 14px 0; }
+      .user { color:#9ecbff; }
+      .assistant { color:#ff8f8f; }
+      .meta { color:#9b9baa; font-size:12px; margin-top:4px; }
+      .row { display:flex; gap:10px; margin-top:14px; }
+      textarea { flex:1; min-height:74px; resize:vertical; background:#101016; color:#f3f3f3; border:1px solid #303040; border-radius:10px; padding:12px; }
+      button { background:#a91414; color:white; border:none; border-radius:10px; padding:0 20px; cursor:pointer; }
+      .help { color:#bdbdca; font-size:14px; margin:12px 0 18px; }
+      code { background:#20202a; padding:2px 6px; border-radius:6px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="panel">
+        <h1>Project ARES</h1>
+        <div class="help">Commands: <code>add task buy groceries</code>, <code>list tasks</code>, <code>complete task 1</code>, <code>remember my favorite drink is coffee</code>, <code>recall coffee</code>, <code>create note design idea</code>, <code>list notes</code>. General chat now uses local RAG memory retrieval before model generation.</div>
+        <div id="chat"></div>
+        <div class="row">
+          <textarea id="message" placeholder="Talk to ARES..."></textarea>
+          <button id="send">Send</button>
+        </div>
+      </div>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
