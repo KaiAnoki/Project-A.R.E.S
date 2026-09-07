@@ -4,12 +4,15 @@ version = "1.1.0"
 description = "Local AI assistant with retrieval, tools, routing, and SQLite memory"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Khyri Williams (Kai)"}]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.setuptools]
+packages = ["app", "app.core", "app.db"]
 
 [build-system]
 requires = ["setuptools>=68"]
