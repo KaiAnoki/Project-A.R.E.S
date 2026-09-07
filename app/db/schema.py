@@ -2,17 +2,25 @@ from __future__ import annotations
 
 import sqlite3
 from contextlib import contextmanager
+from pathlib import Path
 
 from app.core.config import DB_PATH
 
 
 @contextmanager
 def get_conn():
-    conn = sqlite3.connect(DB_PATH)
+    database_path = Path(DB_PATH)
+    database_path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(database_path), timeout=5.0)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA busy_timeout = 5000")
     try:
         yield conn
         conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         conn.close()
 
@@ -67,6 +75,6 @@ def init_db() -> None:
                 ON optimizer_history(request_type, model_name, created_at DESC);
             """
         )
-        columns = {row[1] for row in conn.execute('PRAGMA table_info(memories)').fetchall()}
-        if 'source' not in columns:
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(memories)").fetchall()}
+        if "source" not in columns:
             conn.execute("ALTER TABLE memories ADD COLUMN source TEXT NOT NULL DEFAULT 'manual'")
